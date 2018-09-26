@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 
 // Définition de la route racine
 app.get("/", function (req, res) {
-
+	res.render('index');
 });
 
 // Lancement du serveur
