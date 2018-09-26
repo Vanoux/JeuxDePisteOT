@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const bodyparser = require('body-parser');
+
 app.use(express.static('public'));
 // Création de la connexion de mysql avec le site
 let connection = mysql.createConnection({
@@ -25,3 +26,8 @@ app.get("/", function (req, res) {
 const server = app.listen(process.env.PORT || 8080, (req, res) =>
     console.log('Server Ready')
 );
+//Exemple pour exporter un module
+function test(){
+	return 'test';
+}
+module.exports = test()
