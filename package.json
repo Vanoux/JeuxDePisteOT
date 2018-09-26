@@ -1,5 +1,5 @@
 {
-  "name": "fullstack-js",
+  "name": "saint-go",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,7 +7,6 @@
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "google-books-search": "^0.3.1",
     "mysql": "^2.15.0"
   },
   "devDependencies": {},
@@ -17,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Groutch/FullStack-JS.git"
+    "url": "git+https://github.com/Vanoux/JeuxDePisteOT.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Groutch/FullStack-JS/issues"
+    "url": "https://github.com/Vanoux/JeuxDePisteOT/issues"
   },
-  "homepage": "https://github.com/Groutch/FullStack-JS#readme"
+  "homepage": "https://github.com/Vanoux/JeuxDePisteOT#readme"
 }
