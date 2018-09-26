@@ -1,8 +1,5 @@
-# saintgo
 
-> Un projet de jeu de piste sur Saint-Gaudens
-
-## Build Setup
+# JeuxDePisteOT
 
 ``` bash
 # install dependencies
@@ -27,4 +24,12 @@ npm run e2e
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+##Projet Pédago Jeux de Piste pour l'Office de Tourisme de Saint Gaudens
+
+###Equipe Valentin, Clément, Vanessa
+
+Kanban : https://trello.com/b/tdAMBcN0/office-du-tourisme
+
+Planning Poker : https://pokrex.com/rooms/office-tourisme
+
+Wireframe : https://marvelapp.com/3e6f5a8/screen/48217879
