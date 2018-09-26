@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+<%-include('partials/header.ejs')%>
+	<title>Accueil Test</title>
 </head>
 <body>
 	Accueil
 	<% if (locals.connected) { -%>
 		YES CONNECTED
 	<% } -%>
-</body>
-</html>
+<%- include('partials/footer.ejs')%>
