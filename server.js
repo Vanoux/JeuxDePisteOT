@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const bodyparser = require('body-parser');
+
 const session = require('express-session');
 app.use(express.static('public'));
 // Création de la connexion de mysql avec le site
@@ -38,11 +39,24 @@ function blbl(str) {
 app.get("/", function (req, res) {
 	sess=req.session;
 	if (sess.username) {
-		res.render('index',{connected:sess.username});
+        res.render('map');
+		// res.render('index',{connected:sess.username});
 	}else{
-		res.render('index');
+		res.redirect('/login');
 	}
 });
+
+//page map
+app.get("/map", function (req,res){
+    sess=req.session;
+    if (sess.username){
+        res.render('map');
+    }else {
+        res.redirect('/');
+    }
+    
+});
+
 //Page login
 app.get('/login', function(req,res){
 	res.render('login',{login:'Connect'});
