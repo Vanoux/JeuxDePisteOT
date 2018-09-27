@@ -65,6 +65,14 @@ app.get('/login', function(req,res){
 app.get('/register',function(req,res){
 	res.render('login');
 });
+
+//Page dashboard ************************
+app.get('/dashboard',function(req,res){
+	sess=req.session;
+	let username=sess.username;
+	res.render('dashboard',{username:username});
+});
+
 //Lors d'une tentative de connexion
 app.post('/login',function(req,res){
 	sess=req.session;
