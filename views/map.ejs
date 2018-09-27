@@ -1,14 +1,19 @@
-<!doctype html>
-<html>
-<head>
-<title>La map</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%-include('partials/header.ejs')%>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
 <link rel="stylesheet" href="stylemap.css">
+<title>Map</title>
 </head>
 <body>
-    <div id="map"></div>
+    <div id="map">
+        <!-- emplacement de la map -->
+
+        <!-- emplacement des boutons -->
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-medium red" href="/dashboard">
+              <i class="large material-icons">mode_edit</i>
+            </a>
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
     integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
     crossorigin=""></script>
@@ -43,5 +48,4 @@
         var intervalID = window.setInterval(GetPosMap, 3000);
 
     </script>
-</body>
-</html>
+<%-include('partials/footer.ejs')%>
