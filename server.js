@@ -87,6 +87,16 @@ app.post('/register',function(req,res){
 		}
 	});
 });
+//Deconnexion
+app.get('/logout',function(req,res){
+	req.session.destroy((err)=> {
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect('/');
+		}
+	});
+});
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8080, (req, res) =>
 	console.log('Server Ready')
