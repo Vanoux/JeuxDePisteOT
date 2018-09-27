@@ -27,12 +27,13 @@
             function maPosition(position) {
                 lat = position.coords.latitude ;
                 long = position.coords.longitude;
-                if (typeof marker !== 'undefined'){
-                    mymap.removeLayer(marker)
+                if (typeof markerChar !== 'undefined'){
+                    mymap.removeLayer(markerChar)
                 }
                 // affichage de la map
-                marker = new L.Marker([lat, long], {icon: myIcon, draggable:true});
-                mymap.addLayer(marker);
+                markerChar = new L.Marker([lat, long], {icon: myIcon, draggable:true});
+                mymap.setView([lat,long]);
+                mymap.addLayer(markerChar);
             }
             
             if(navigator.geolocation)
