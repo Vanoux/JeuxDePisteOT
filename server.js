@@ -51,9 +51,11 @@ app.post('/login',function(req,res){
 		if(error){
 			console.log(error);
 		}
-		if(password==results[0].pass){
+		else if(password==results[0].pass){
 			sess.username=username;
 			res.redirect('/');
+		}else {
+			res.redirect('/login')
 		}		
 	});
 });
