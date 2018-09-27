@@ -28,9 +28,10 @@
                 lat = position.coords.latitude ;
                 long = position.coords.longitude;
                 // affichage de la map
-                L.marker([lat, long], {icon: myIcon}).addTo(mymap);
+                marker = new L.Marker([lat, long], {icon: myIcon, draggable:true});
+                mymap.addLayer(marker);
             }
-
+            
             if(navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(maPosition);
             
