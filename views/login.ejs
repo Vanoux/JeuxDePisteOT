@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs')%>
+<title><% if (locals.login) { -%>
+	Se connecter
+	<% }else { -%>S'enregistrer<%}%></title>
+</head>
+<body>
+	<div class="row"></div>
+		<div class="row">
+			<div class="col s4 offset-s4">
+				<form action=<% if (locals.login) { -%>"/login"
+					<% }else {%>"/register"<% } %> method='POST'>
+					<div class="input-field">
+					<input type="text" name="username" id="username">
+					<label for="username">Nom d'utilisateur</label>
+					</div>
+					<div class="input-field">
+					<input type="password" name="password" id="password">
+					<label for="password">Mot de passe</label>
+					</div>
+					<% if (locals.login) { -%>
+					<button class="btn waves-effect waves-light" type="submit">Se connecter</button>	
+					<% }else{ -%>
+					<div class="input-field">
+					<input type="email" name="email" id="email">
+					<label for="email">Email</label>
+					</div>
+					<button class="btn waves-effect waves-light" type="submit">S'enregistrer</button>
+					<%}%>
+				</form>
+			</div>
+		</div>
+	<%- include('partials/footer.ejs')%>
