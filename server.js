@@ -70,6 +70,7 @@ app.get('/register',function(req,res){
 app.get('/dashboard',function(req,res){
 	sess=req.session;
 	let username=sess.username;
+	// let email=sess.email;
 	res.render('dashboard',{username:username});
 });
 
