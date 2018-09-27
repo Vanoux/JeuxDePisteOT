@@ -27,6 +27,9 @@
             function maPosition(position) {
                 lat = position.coords.latitude ;
                 long = position.coords.longitude;
+                if (typeof marker !== 'undefined'){
+                    mymap.removeLayer(marker)
+                }
                 // affichage de la map
                 marker = new L.Marker([lat, long], {icon: myIcon, draggable:true});
                 mymap.addLayer(marker);
