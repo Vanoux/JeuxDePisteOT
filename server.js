@@ -39,15 +39,22 @@ function blbl(str) {
 app.get("/", function (req, res) {
 	sess=req.session;
 	if (sess.username) {
-		res.render('index',{connected:sess.username});
+        res.render('map');
+		// res.render('index',{connected:sess.username});
 	}else{
-		res.render('index');
+		res.redirect('/login');
 	}
 });
 
 //page map
 app.get("/map", function (req,res){
-    res.render('map');
+    sess=req.session;
+    if (sess.username){
+        res.render('map');
+    }else {
+        res.redirect('/');
+    }
+    
 });
 
 //Page login
