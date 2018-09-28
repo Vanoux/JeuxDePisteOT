@@ -41,7 +41,7 @@ function blbl(str) {
 app.get("/", function (req, res) {
 	sess=req.session;
 	if (sess.username) {
-		res.render('map');
+		res.redirect('/map');
 		// res.render('index',{connected:sess.username});
 	}else{
 		res.redirect('/login');
@@ -51,7 +51,16 @@ app.get("/", function (req, res) {
 app.get("/map", function (req,res){
 	sess=req.session;
 	if (sess.username){
-		res.render('map');
+		let selectpoi = `SELECT * FROM poi;`;
+		connection.query(selectpoi,function(error,results,field){
+			if(error){
+				console.log(error);
+			}
+			else {
+				
+				res.render('map',{results:results});
+			}
+		})
 	}else {
 		res.redirect('/');
 	}
