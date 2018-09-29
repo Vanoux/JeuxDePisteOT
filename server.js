@@ -78,13 +78,14 @@ app.get('/register',function(req,res){
 });
 
 //Page dashboard ************************
+	//Récupération info user
 app.get('/dashboard',function(req,res){
 	sess=req.session;
 	console.log(sess);
 		if(!sess.username){
 			res.redirect('/login')
-		}else {
-			
+		}
+		else {
 			let username=sess.username;
 			console.log(sess.username);
 			let queryUser=`SELECT mail, xp FROM User WHERE username= '${username}'`;
@@ -99,6 +100,8 @@ app.get('/dashboard',function(req,res){
 			})
 		}
 });
+//Modification info user
+app.post()
 	
 	//Lors d'une tentative de connexion
 app.post('/login',function(req,res){
