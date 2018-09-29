@@ -41,6 +41,7 @@ function blbl(str) {
 app.get("/", function (req, res) {
 	sess=req.session;
 	if (sess.username) {
+		console.log(sess.username);
 		res.redirect('/map');
 		// res.render('index',{connected:sess.username});
 	}else{
@@ -79,12 +80,27 @@ app.get('/register',function(req,res){
 //Page dashboard ************************
 app.get('/dashboard',function(req,res){
 	sess=req.session;
-	let username=sess.username;
-	// let email=sess.email;
-	res.render('dashboard',{username:username});
+	console.log(sess);
+		if(!sess.username){
+			res.redirect('/login')
+		}else {
+			
+			let username=sess.username;
+			console.log(sess.username);
+			let queryUser=`SELECT mail, xp FROM User WHERE username= '${username}'`;
+			connection.query(queryUser, function(error, results, field){
+				if(error){
+					console.log(error)
+				}
+				else {
+					console.log(results);
+					res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp});
+				}
+			})
+		}
 });
-
-//Lors d'une tentative de connexion
+	
+	//Lors d'une tentative de connexion
 app.post('/login',function(req,res){
 	sess=req.session;
 	let username=blbl(req.body.username);
