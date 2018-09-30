@@ -1,5 +1,9 @@
 
-###Equipe Valentin, Clément, Vanessa
+# Projet Application "Jeu de piste" pour l'Office du Tourisme
+
+L’office du tourisme a émis le souhait de mettre en place une application de jeu de piste autour du patrimoine Saint Gaudinois.
+
+Equipe Simplon : Valentin, Clément, Vanessa
 
 Kanban : https://trello.com/b/tdAMBcN0/office-du-tourisme
 
