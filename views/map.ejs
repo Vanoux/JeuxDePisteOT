@@ -21,20 +21,29 @@
         //creation de l'icone personnalisée pour le personnage
         var myIcon = L.icon({
             iconUrl: './img/pointer.png',
-            iconSize: [36, 68],
-            iconAnchor: [16, 53]
+            iconSize: [27, 51],
+            iconAnchor: [12, 40]
         });
+
         //creation des POIs
-        var grpPOI=[];
+        var grpPOI1=[];
+        var grpPOI2=[];
         <% results.forEach(function(poi){ %>
             var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>]).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
-            grpPOI.push(POI<%=poi.idPOI%>);
+            grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
         <% }); %>
-        var layerPOI = L.layerGroup(grpPOI);
-        //initialise une map
-        var mymap = L.map('map', {layers: [layerPOI]} ).setView([43.107895, 0.723579], 20);
+        var layerPOI1 = L.layerGroup(grpPOI1);
+        var layerPOI2 = L.layerGroup(grpPOI2);
+        //initialise une map avec les POI
+        var mymap = L.map('map', {layers: [layerPOI1,layerPOI2]} ).setView([43.107895, 0.723579], 30);
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom: 18,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',}).addTo(mymap);
+        //Gestion des layer control (filtre)
+        var baseLayers = {
+            "Jeu de Piste 6/8ans": layerPOI1,
+            "Jeu de Piste 9/11ans": layerPOI2,
+        };
         
+        L.control.layers(null,baseLayers, {position: 'bottomleft', collapsed: true}).addTo(mymap);
         function GetPosMap(){
             // récupération de la position de l'utilisateur
             var lat,long;
