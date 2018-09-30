@@ -4,9 +4,6 @@
 <div class="row">
     <div class="col s12 m12">
         <div class="card blue-grey darken-3">
-            <div class="card-action">
-                <a href="/">Back to the Map</a>
-            </div>
             <div class="card-content white-text" align="center">
 
                 <i class="large material-icons">account_circle</i>
@@ -42,14 +39,16 @@
 
 <!--Bouton flottant de modification info user-->
 <div class="fixed-action-btn">
-
-    <!--Button logout -->
-    <a href="/logout" class="btn-floating green"><i class="material-icons">logout</i></a>
-
+    <!-- Return to the map -->
+    <a href="/" class="btn-floating btn-large blue waves-effect waves-light">
+        <i class="large material-icons">language</i>
+    </a>
     <!-- Modal Trigger -->
-    <a class="btn-floating btn-large red waves-effect waves-light btn modal-trigger" data-target="modal1">
+    <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1">
         <i class="large material-icons">mode_edit</i>
     </a>
+    <!--Button logout -->
+    <a href="/logout" class="btn-floating btn-large red"><i class="material-icons">logout</i></a>
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
@@ -59,20 +58,20 @@
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input placeholder="Placeholder" id="first_name" type="text" class="validate">
                             <label for="first_name">Nom ou Pseudo</label>
+                            <input id="first_name" type="text" class="validate">
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="password" type="password" class="validate">
                             <label for="password">Mot de passe</label>
+                            <input id="password" type="password" class="validate">
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate">
                             <label for="email">E-mail</label>
+                            <input id="email" type="email" class="validate">
                         </div>
                     </div>
             </div>
