@@ -9,7 +9,7 @@
                 <i class="large material-icons">account_circle</i>
                 <span class="card-title">
                     <%= username %></span>
-                <a href="#">
+                <a >
                     <%= email %></a>
                 <h6>Niveau
                     <% if (locals.xp && xp.length>2) {  %>
@@ -59,19 +59,20 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="first_name">Nom ou Pseudo</label>
-                            <input id="first_name" type="text" class="validate">
+                            <input id="first_name" type="text">
                         </div>
                     </div>
+                    <!-- Input bug ? -->
                     <div class="row">
                         <div class="input-field col s12">
-                            <label for="password">Mot de passe</label>
-                            <input id="password" type="password" class="validate">
+                            <label for="pass">Mot de passe</label>
+                            <input id="pass" type="password">
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="email">E-mail</label>
-                            <input id="email" type="email" class="validate">
+                            <input id="email" type="email">
                         </div>
                     </div>
             </div>
