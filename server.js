@@ -95,7 +95,7 @@ app.get('/dashboard',function(req,res){
 				}
 				else {
 					console.log(results);
-					res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp});
+					res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString()});
 				}
 			})
 		}
