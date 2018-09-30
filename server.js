@@ -100,8 +100,6 @@ app.get('/dashboard',function(req,res){
 			})
 		}
 });
-//Modification info user
-app.post()
 	
 	//Lors d'une tentative de connexion
 app.post('/login',function(req,res){
