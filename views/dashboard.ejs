@@ -53,17 +53,13 @@
             <div id="modal1" class="modal">
                 <div class="modal-content">
                     <h4>Modifier vos informations</h4>
-                    <form action="" method="POST">
+                    <form action="/edit" method="POST">
                        <div class="input-field">
-                        <input type="text" name="username" id="username"/>
+                        <input type="text" name="username" id="username" value="<%= username %>"/>
                         <label for="username">Nom d'utilisateur</label>
                     </div>
                     <div class="input-field">
-                        <input type="password" name="password" id="password"/>
-                        <label for="password">Mot de passe</label>
-                    </div>
-                    <div class="input-field">
-                        <input id="email" type="email"/>
+                        <input id="email" type="email" value="<%= email %>"/>
                         <label for="email">E-mail</label>
                     </div>
                 </form>

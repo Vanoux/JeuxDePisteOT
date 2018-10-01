@@ -75,6 +75,7 @@ app.get("/map", function (req,res){
 
 });
 
+
 //Page login
 app.get('/login', function(req,res){
 	res.render('login',{login:'Connect'});
@@ -108,20 +109,31 @@ app.get('/dashboard',function(req,res){
 		}
 });
 //Modification info user
-//app.post()
+app.post('/edit', function(req,res){
+sess=req.session;
+let username=blbl(req.body.username);
+let email=blbl(req.body.email);
+let connect=`UPDATE user SET username = '${username}', mail = '${email} WHERE idUser= '${sess.id}'`;
+
+});
+
+
+
+
 	
 	//Lors d'une tentative de connexion
 app.post('/login',function(req,res){
 	sess=req.session;
 	let username=blbl(req.body.username);
 	let password=blbl(req.body.password);
-	let connect=`SELECT pass FROM User WHERE username='${username}'`;
+	let connect=`SELECT idUser, pass FROM User WHERE username='${username}'`;
 	connection.query(connect,function(error,results,field){
 		if(error){
 			console.log(error);
 		}
 		else if(results.length>0){
 			if (bcrypt.compareSync(password, results[0].pass)) {
+			sess.id=results[0].idUser;
 			sess.username=username;
 			res.redirect('/');
 			}
