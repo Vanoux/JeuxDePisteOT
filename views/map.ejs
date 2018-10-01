@@ -16,7 +16,7 @@
         <!-- bouton pour le tracking -->
         <div class="fixed-action-btn fixed-action-btn-2">
             <a class="btn-floating btn-small green" onClick="switchTracking()">
-              <i class="large material-icons" id="bt-gps">gps_not_fixed</i>
+              <i class="large material-icons" id="bt-gps">gps_fixed</i>
             </a>
         </div>
     </div>
@@ -25,7 +25,7 @@
     crossorigin=""></script>
     <script type="text/javascript">
         //variable pour le suivi ou non de l'utilisateur
-        var tracking = false;
+        var tracking = true;
         //creation de l'icone personnalisée pour le personnage
         var myIcon = L.icon({
             iconUrl: './img/HibouMarker.png',
