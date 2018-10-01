@@ -110,7 +110,7 @@ app.get('/dashboard',function(req,res){
 			})
 		}
 });
-//Modification info user
+//Modification infos user
 app.post('/edit', function(req,res){
 sess=req.session;
 let username=blbl(req.body.username);
