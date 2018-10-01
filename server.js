@@ -89,31 +89,42 @@ app.get('/register',function(req,res){
 	//Récupération info user
 app.get('/dashboard',function(req,res){
 	sess=req.session;
-	console.log(sess);
+
+	let id= sess.idUser;
+	console.log(id);
 		if(!sess.username){
 			res.redirect('/login')
 		}
 		else {
-			let username=sess.username;
-			console.log(sess.username);
-			let queryUser=`SELECT mail, xp FROM User WHERE username= '${username}'`;
+			let queryUser=`SELECT username, mail, xp FROM User WHERE idUser= '${id}'`;
 			connection.query(queryUser, function(error, results, field){
 				if(error){
 					console.log(error)
 				}
 				else {
-					console.log(results);
+					console.log(results[0])
+					sess.username=results[0].username;
+					let username=sess.username;
 					res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString()});
 				}
 			})
 		}
 });
-//Modification info user
+//Modification infos user
 app.post('/edit', function(req,res){
 sess=req.session;
 let username=blbl(req.body.username);
 let email=blbl(req.body.email);
-let connect=`UPDATE user SET username = '${username}', mail = '${email} WHERE idUser= '${sess.id}'`;
+let connect=`UPDATE user SET username = '${username}', mail = '${email}' WHERE idUser= '${sess.idUser}'`;
+console.log(connect);
+connection.query(connect, function(error, results, fields){
+	if(error){
+		console.log(error);
+	}
+	else {
+		res.redirect("/dashboard");
+	}
+})
 
 });
 
@@ -133,7 +144,7 @@ app.post('/login',function(req,res){
 		}
 		else if(results.length>0){
 			if (bcrypt.compareSync(password, results[0].pass)) {
-			sess.id=results[0].idUser;
+			sess.idUser=results[0].idUser;
 			sess.username=username;
 			res.redirect('/');
 			}
