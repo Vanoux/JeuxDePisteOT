@@ -13,11 +13,19 @@
               <i class="large material-icons">account_circle</i>
             </a>
         </div>
+        <!-- bouton pour le tracking -->
+        <div class="fixed-action-btn fixed-action-btn-2">
+            <a class="btn-floating btn-small green" onClick="switchTracking()">
+              <i class="large material-icons" id="bt-gps">gps_not_fixed</i>
+            </a>
+        </div>
     </div>
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
     integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
     crossorigin=""></script>
     <script type="text/javascript">
+        //variable pour le suivi ou non de l'utilisateur
+        var tracking = false;
         //creation de l'icone personnalisée pour le personnage
         var myIcon = L.icon({
             iconUrl: './img/pointer.png',
@@ -28,15 +36,16 @@
         //creation des POIs
         var grpPOI1=[];
         var grpPOI2=[];
-        <% results.forEach(function(poi){ %>
-            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>]).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
+        <% listpoi.forEach(function(poi){ %>
+            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{color: 'red'}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
             grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
         <% }); %>
         var layerPOI1 = L.layerGroup(grpPOI1);
         var layerPOI2 = L.layerGroup(grpPOI2);
         //initialise une map avec les POI
-        var mymap = L.map('map', {layers: [layerPOI1,layerPOI2]} ).setView([43.107895, 0.723579], 30);
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom: 18,attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',}).addTo(mymap);
+        var mymap = L.map('map', {layers: [layerPOI1,layerPOI2]} ).setView([43.107895, 0.723579], 18);
+        //&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom: 21,attribution: 'Saint-GO',}).addTo(mymap);
         //Gestion des layer control (filtre)
         var baseLayers = {
             "Jeu de Piste 6/8ans": layerPOI1,
@@ -55,15 +64,28 @@
                 }
                 // affichage de la map
                 markerChar = new L.Marker([lat, long], {icon: myIcon, draggable:false});
-                mymap.setView([lat,long]);
                 mymap.addLayer(markerChar);
+                if (tracking){
+                    mymap.setView([lat,long]);
+                }
             }
-            
             if(navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(maPosition);
             
         }
-        var intervalID = window.setInterval(GetPosMap, 3000);
+        function switchTracking(){
+            tracking=!tracking;
+            console.log("tracking : "+tracking);
+            var el = document.getElementById("bt-gps");
+            if (tracking){
+                // recup le dom du bouton gps et mettre innerHTML à gps_fixed
+                el.innerHTML="gps_fixed";
+            }else{
+                // recup le dom du bouton gps et mettre innerHTML à gps_not_fixed
+                el.innerHTML="gps_not_fixed";
+            }
+        } 
+        var intervalID = window.setInterval(GetPosMap, 1000);
 
     </script>
 <%-include('partials/footer.ejs')%>

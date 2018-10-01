@@ -53,13 +53,20 @@ app.get("/map", function (req,res){
 	sess=req.session;
 	if (sess.username){
 		let selectpoi = `SELECT * FROM poi;`;
-		connection.query(selectpoi,function(error,results,field){
+		connection.query(selectpoi,function(error,listpoi,field){
 			if(error){
 				console.log(error);
 			}
 			else {
-				
-				res.render('map',{results:results});
+				let selectjourney = `SELECT * FROM journey;`;
+				connection.query(selectjourney,function(error,listjourney,field){
+					if(error){
+						console.log(error);
+					}
+					else {
+						res.render('map',{listpoi:listpoi,listjourney:listjourney});
+					}
+				})
 			}
 		})
 	}else {
