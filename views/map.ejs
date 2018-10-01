@@ -32,27 +32,49 @@
             iconSize: [27, 51],
             iconAnchor: [12, 40]
         });
+        //creation des variations de couleurs d'icones
+        var greenIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var redIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
 
         //creation des POIs
         var grpPOI1=[];
         var grpPOI2=[];
+        //pour chaque POI on crée le marqueur associé et on lui assigne une icone correspondant à greenIcon ou redIcon
+        //et on l'ajoute à un tableau grpPOI (1 ou 2 suivant le parcours)
         <% listpoi.forEach(function(poi){ %>
-            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{color: 'red'}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
+            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
             grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
         <% }); %>
+        //transforme les tableaux de POI en layers de POI
         var layerPOI1 = L.layerGroup(grpPOI1);
         var layerPOI2 = L.layerGroup(grpPOI2);
-        //initialise une map avec les POI
+        //initialise une map avec les layers de POI
         var mymap = L.map('map', {layers: [layerPOI1,layerPOI2]} ).setView([43.107895, 0.723579], 18);
-        //&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png',{maxZoom: 21,attribution: 'Saint-GO',}).addTo(mymap);
+        
         //Gestion des layer control (filtre)
         var baseLayers = {
             "Jeu de Piste 6/8ans": layerPOI1,
             "Jeu de Piste 9/11ans": layerPOI2,
         };
-        
+        //on crée les controles pour les layers sur l'écran de la map en bas à gauche
         L.control.layers(null,baseLayers, {position: 'bottomleft', collapsed: true}).addTo(mymap);
+
+        //fonction qui sera appelée toutes les secondes pour update la position de l'utilisateur
         function GetPosMap(){
             // récupération de la position de l'utilisateur
             var lat,long;
@@ -65,14 +87,17 @@
                 // affichage de la map
                 markerChar = new L.Marker([lat, long], {icon: myIcon, draggable:false});
                 mymap.addLayer(markerChar);
+                //si le tracking est activé, on centre la vue sur l'utilisateur
                 if (tracking){
                     mymap.setView([lat,long]);
                 }
             }
+
             if(navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(maPosition);
             
         }
+        //switch entre les  états de traking
         function switchTracking(){
             tracking=!tracking;
             console.log("tracking : "+tracking);
@@ -84,7 +109,8 @@
                 // recup le dom du bouton gps et mettre innerHTML à gps_not_fixed
                 el.innerHTML="gps_not_fixed";
             }
-        } 
+        }
+        //le set interval qui lance le refresh de la position toutes les secondes
         var intervalID = window.setInterval(GetPosMap, 1000);
 
     </script>
