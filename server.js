@@ -129,7 +129,7 @@ app.post('/register',function(req,res){
 	let pass=blbl(req.body.password);
 	let email=blbl(req.body.email);
 	bcrypt.hash(pass,null,null,function(err,hash){
-		let createAccount = `INSERT INTO User (username,pass,mail) VALUES ('${username}','${hash}','${email}')`;
+		let createAccount = `INSERT INTO User (username,pass,mail,xp) VALUES ('${username}','${hash}','${email}',0)`;
 		connection.query(createAccount,function(error,results,field){
 			if(error){
 				console.log(error);
