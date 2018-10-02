@@ -45,9 +45,10 @@ app.get("/", function (req, res) {
 		res.redirect('/map');
 		// res.render('index',{connected:sess.username});
 	}else{
-		res.redirect('/login');
+		res.render('choice');
 	}
 });
+
 //page map
 app.get("/map", function (req,res){
 	sess=req.session;
