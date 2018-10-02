@@ -103,7 +103,16 @@ app.get('/register',function(req,res){
 				else {
 					sess.username=results[0].username;
 					let username=sess.username;
-					res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString()});
+					let titleJourney = `SELECT * FROM Journey`;
+					connection.query(titleJourney, function (error, journeys, fields){
+						if(error){
+							console.log(error);
+						} else {
+							let title = journeys[0].titleJourney
+							let title2 = journeys[1].titleJourney
+							res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString(), titleJourney:title, titleJourney2:title2});
+						}
+					})
 				}
 			})
 		}
@@ -125,23 +134,22 @@ app.post('/edit', function(req,res){
 
 });
 // Ajout parcours et POI sur Dashboard
-// Ne fonctionne pas!!!
-app.get('/dashboard', function (req, res) {
-	sess=req.session;
+// app.get('/dashboard', function (req, res) {
+// 	sess=req.session;
 
-	let titleJourney = `SELECT titleJourney FROM Journey;`;
-	connection.query(titleJourney, function (error, results, fields) {
-		if(error){
-			console.log(error);
-		} else {
-			res.render('dashboard', {
-				titleJourney: titleJourney
-			});
-		}
-	})
-
-
-})
+// 	let titleJourney = `SELECT * FROM Journey;`;
+// 	connection.query(titleJourney, function (error, results, fields) {
+// 		if(error){
+// 			console.log(error);
+// 		} else {
+// 			let title = results[0].titleJourney
+// 			res.render('dashboard', {
+// 				titleJourney: title
+				
+// 			});
+// 		}
+// 	})
+// })
 
 
 
