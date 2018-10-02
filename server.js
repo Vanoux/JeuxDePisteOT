@@ -128,6 +128,24 @@ connection.query(connect, function(error, results, fields){
 })
 
 });
+// Ajout parcours et POI sur Dashboard
+// Ne fonctionne pas!!!
+app.get('/dashboard', function (req, res) {
+	sess=req.session;
+
+	let titleJourney = `SELECT titleJourney FROM Journey;`;
+	connection.query(titleJourney, function (error, results, fields) {
+		if(error){
+			console.log(error);
+		} else {
+			res.render('dashboard', {
+				titleJourney: titleJourney
+			});
+		}
+	})
+
+
+})
 
 
 
