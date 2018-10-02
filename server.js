@@ -26,7 +26,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 // Définition du moteur de template
 app.set('view engine', 'ejs');
 //Fonction sécurité sur les inputs
-function blbl(str) {
+ let blbl = function(str) {
 	if (str == null) return ' ';
 
 	return String(str).
@@ -34,7 +34,7 @@ function blbl(str) {
 	replace(/</g, '&lt;').
 	replace(/>/g, '&gt;').
 	replace(/"/g, '&quot;').
-	replace(/--/g, 'blbl').
+	replace(/--/g, '&#151;').
 	replace(/'/g, '&#039;');
 };
 // Définition de la route racine
@@ -87,10 +87,10 @@ app.get('/register',function(req,res){
 
 //Page dashboard ************************
 	//Récupération info user
-app.get('/dashboard',function(req,res){
-	sess=req.session;
+	app.get('/dashboard',function(req,res){
+		sess=req.session;
 
-	let id= sess.idUser;
+		let id= sess.idUser;
 		if(!sess.username){
 			res.redirect('/')
 		}
@@ -107,21 +107,21 @@ app.get('/dashboard',function(req,res){
 				}
 			})
 		}
-});
+	});
 //Modification infos user
 app.post('/edit', function(req,res){
-sess=req.session;
-let username=blbl(req.body.username);
-let email=blbl(req.body.email);
-let connect=`UPDATE user SET username = '${username}', mail = '${email}' WHERE idUser= '${sess.idUser}'`;
-connection.query(connect, function(error, results, fields){
-	if(error){
-		console.log(error);
-	}
-	else {
-		res.redirect("/dashboard");
-	}
-})
+	sess=req.session;
+	let username=blbl(req.body.username);
+	let email=blbl(req.body.email);
+	let connect=`UPDATE user SET username = '${username}', mail = '${email}' WHERE idUser= '${sess.idUser}'`;
+	connection.query(connect, function(error, results, fields){
+		if(error){
+			console.log(error);
+		}
+		else {
+			res.redirect("/dashboard");
+		}
+	})
 
 });
 // Ajout parcours et POI sur Dashboard
@@ -146,28 +146,28 @@ app.get('/dashboard', function (req, res) {
 
 
 
-	
+
 	//Lors d'une tentative de connexion
-app.post('/login',function(req,res){
-	sess=req.session;
-	let username=blbl(req.body.username);
-	let password=blbl(req.body.password);
-	let connect=`SELECT idUser, pass FROM User WHERE username='${username}'`;
-	connection.query(connect,function(error,results,field){
-		if(error){
-			console.log(error);
-		}
-		else if(results.length>0){
-			if (bcrypt.compareSync(password, results[0].pass)) {
-			sess.idUser=results[0].idUser;
-			sess.username=username;
-			res.redirect('/');
+	app.post('/login',function(req,res){
+		sess=req.session;
+		let username=blbl(req.body.username);
+		let password=blbl(req.body.password);
+		let connect=`SELECT idUser, pass FROM User WHERE username='${username}'`;
+		connection.query(connect,function(error,results,field){
+			if(error){
+				console.log(error);
 			}
-		}else{
-			res.redirect('/');
-		}
-	})
-});
+			else if(results.length>0){
+				if (bcrypt.compareSync(password, results[0].pass)) {
+					sess.idUser=results[0].idUser;
+					sess.username=username;
+					res.redirect('/');
+				}
+			}else{
+				res.redirect('/');
+			}
+		})
+	});
 //Lors d'une inscription
 app.post('/register',function(req,res){
 	let username=blbl(req.body.username);
@@ -199,7 +199,4 @@ const server = app.listen(process.env.PORT || 8080, (req, res) =>
 	console.log('Server Ready')
 	);
 //Exemple pour exporter un module
-function test(){
-	return 'test';
-}
-module.exports = test()
+module.exports = blbl;
