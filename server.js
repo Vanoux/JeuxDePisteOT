@@ -44,9 +44,10 @@ app.get("/", function (req, res) {
 		res.redirect('/map');
 		// res.render('index',{connected:sess.username});
 	}else{
-		res.redirect('/login');
+		res.render('choice');
 	}
 });
+
 //page map
 app.get("/map", function (req,res){
 	sess=req.session;
@@ -91,7 +92,7 @@ app.get('/dashboard',function(req,res){
 
 	let id= sess.idUser;
 		if(!sess.username){
-			res.redirect('/login')
+			res.redirect('/')
 		}
 		else {
 			let queryUser=`SELECT username, mail, xp FROM User WHERE idUser= '${id}'`;
@@ -123,6 +124,24 @@ connection.query(connect, function(error, results, fields){
 })
 
 });
+// Ajout parcours et POI sur Dashboard
+// Ne fonctionne pas!!!
+app.get('/dashboard', function (req, res) {
+	sess=req.session;
+
+	let titleJourney = `SELECT titleJourney FROM Journey;`;
+	connection.query(titleJourney, function (error, results, fields) {
+		if(error){
+			console.log(error);
+		} else {
+			res.render('dashboard', {
+				titleJourney: titleJourney
+			});
+		}
+	})
+
+
+})
 
 
 

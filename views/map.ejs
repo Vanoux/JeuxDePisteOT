@@ -1,5 +1,6 @@
 <%-include('partials/header.ejs')%>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+<link rel="stylesheet" href="leaflet-compass.css" />
 <link rel="stylesheet" href="stylemap.css">
 <title>Map</title>
 </head>
@@ -73,7 +74,10 @@ crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
 integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 crossorigin=""></script>
+<script src="/leaflet-compass.js"></script>
 <script type="text/javascript">
+
+
         //variable pour le suivi ou non de l'utilisateur
         var tracking = true;
         //creation de l'icone personnalisée pour le personnage
@@ -137,12 +141,16 @@ crossorigin=""></script>
                 f._popup.setContent('Tu n\'es pas assez près du point');
             }
         }
-
         if(navigator.geolocation)
             navigator.geolocation.getCurrentPosition(maPosition);
     }
+
+    var comp = new L.Control.Compass({position : 'topleft', autoActive: true, showDigit:true});
+    mymap.addControl(comp);
+
         //fonction qui sera appelée toutes les secondes pour update la position de l'utilisateur
         function GetPosMap(){
+            console.log(mymap.distance(POI1.getLatLng(),POI2.getLatLng()));
             // récupération de la position de l'utilisateur
             var lat,long;
             function maPosition(position) {
