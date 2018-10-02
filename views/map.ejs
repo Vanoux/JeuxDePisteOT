@@ -11,19 +11,69 @@
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large green" href="/dashboard">
               <i class="large material-icons">account_circle</i>
-            </a>
-        </div>
-        <!-- bouton pour le tracking -->
-        <div class="fixed-action-btn fixed-action-btn-2">
-            <a class="btn-floating btn-small green" onClick="switchTracking()">
-              <i class="large material-icons" id="bt-gps">gps_fixed</i>
-            </a>
-        </div>
+          </a>
+      </div>
+      <!-- bouton pour le tracking -->
+      <div class="fixed-action-btn fixed-action-btn-2">
+        <a class="btn-floating btn-small green" onClick="switchTracking()">
+          <i class="large material-icons" id="bt-gps">gps_fixed</i>
+      </a>
+  </div>
+</div>
+<!-- Modal Activité 1 ! -->
+<div id="act1" class="modal">
+    <div class="modal-content">
+        <h4>Activité 1</h4>
+        <form action="/act/1" method="POST">
+            <fieldset>
+                <legend>Quel est l'animal présent en face de la croix du sommet de l'eglise</legend>
+                <div class="input-field">
+                    <p>
+                        <label>
+                            <input type="radio" name="statue" id="vache">
+                            <span>Une Vache</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="input-field">
+                    <p>
+                        <label>
+                            <input type="radio" name="statue" id="cheval">
+                            <span>Un Cheval</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="input-field">
+                    <p>
+                        <label>
+                            <input type="radio" name="statue" id="agneau">
+                            <span>Un Agneau</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="input-field">
+                    <p>
+                        <label>
+                            <input type="radio" name="statue" id="ours">
+                            <span>Un Ours</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i class="material-icons">publish</i></button>
+                </div>
+            </fieldset>
+        </form>
     </div>
-    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-    integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-    crossorigin=""></script>
-    <script type="text/javascript">
+</div>
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+crossorigin=""></script>
+<script type="text/javascript">
         //variable pour le suivi ou non de l'utilisateur
         var tracking = true;
         //creation de l'icone personnalisée pour le personnage
@@ -56,9 +106,9 @@
         //pour chaque POI on crée le marqueur associé et on lui assigne une icone correspondant à greenIcon ou redIcon
         //et on l'ajoute à un tableau grpPOI (1 ou 2 suivant le parcours)
         <% listpoi.forEach(function(poi){ %>
-            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>");
+            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
             grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
-        <% }); %>
+            <% }); %>
         //transforme les tableaux de POI en layers de POI
         var layerPOI1 = L.layerGroup(grpPOI1);
         var layerPOI2 = L.layerGroup(grpPOI2);
@@ -73,7 +123,24 @@
         };
         //on crée les controles pour les layers sur l'écran de la map en bas à gauche
         L.control.layers(null,baseLayers, {position: 'bottomleft', collapsed: true}).addTo(mymap);
+        //Fonction qui va checker la position du joueur et du point d'interet
+        function isNear(e){
+            var f = this;
+            function maPosition(position) {
+              var lat = position.coords.latitude ;
+              var long = position.coords.longitude;
+              if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+                $('#act1').modal();
+                $('#act1').modal('open')
+            }
+            else {
+                f._popup.setContent('Tu n\'es pas assez près du point');
+            }
+        }
 
+        if(navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(maPosition);
+    }
         //fonction qui sera appelée toutes les secondes pour update la position de l'utilisateur
         function GetPosMap(){
             // récupération de la position de l'utilisateur
@@ -112,6 +179,10 @@
         }
         //le set interval qui lance le refresh de la position toutes les secondes
         var intervalID = window.setInterval(GetPosMap, 1000);
-
+        //Ouverture modal 1
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
     </script>
-<%-include('partials/footer.ejs')%>
+    <%-include('partials/footer.ejs')%>
