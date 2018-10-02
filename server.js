@@ -41,7 +41,6 @@ function blbl(str) {
 app.get("/", function (req, res) {
 	sess=req.session;
 	if (sess.username) {
-		console.log(sess.username);
 		res.redirect('/map');
 		// res.render('index',{connected:sess.username});
 	}else{
@@ -92,7 +91,6 @@ app.get('/dashboard',function(req,res){
 	sess=req.session;
 
 	let id= sess.idUser;
-	console.log(id);
 		if(!sess.username){
 			res.redirect('/')
 		}
@@ -103,7 +101,6 @@ app.get('/dashboard',function(req,res){
 					console.log(error)
 				}
 				else {
-					console.log(results[0])
 					sess.username=results[0].username;
 					let username=sess.username;
 					let titleJourney = `SELECT * FROM Journey`;
@@ -126,7 +123,6 @@ sess=req.session;
 let username=blbl(req.body.username);
 let email=blbl(req.body.email);
 let connect=`UPDATE user SET username = '${username}', mail = '${email}' WHERE idUser= '${sess.idUser}'`;
-console.log(connect);
 connection.query(connect, function(error, results, fields){
 	if(error){
 		console.log(error);
