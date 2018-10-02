@@ -94,7 +94,7 @@ app.get('/dashboard',function(req,res){
 	let id= sess.idUser;
 	console.log(id);
 		if(!sess.username){
-			res.redirect('/login')
+			res.redirect('/')
 		}
 		else {
 			let queryUser=`SELECT username, mail, xp FROM User WHERE idUser= '${id}'`;
