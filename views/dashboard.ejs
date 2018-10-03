@@ -9,77 +9,98 @@
                 <i class="large material-icons">account_circle</i>
                 <span class="card-title">
                     <%= username %></span>
-                    <a >
-                        <%= email %></a>
-                        <h6>Niveau
-                            <% if (locals.xp && xp.length>2) {  %>
-                            <%=+xp.slice(0,xp.length-2)+1%>
-                            <% } else { %>
-                            1
-                            <% } %>
-                        </h6>
-                        <div class="progress">
-                            <div class="determinate" style="width: <% if (locals.xp && xp.length>2) { -%>
+                <a>
+                    <%= email %></a>
+                <h6>Niveau
+                    <% if (locals.xp && xp.length>2) {  %>
+                    <%=+xp.slice(0,xp.length-2)+1%>
+                    <% } else { %>
+                    1
+                    <% } %>
+                </h6>
+                <div class="progress">
+                    <div class="determinate" style="width: <% if (locals.xp && xp.length>2) { -%>
                                 <%=xp.slice(xp.length-2,xp.length)%>%"></div>
-                                <% }else{ -%>
-                                <%=xp%>%">
-                            </div>
-                            <% } %>
-                        </div>
-                    </div>
-
-                    <div class="collection">
-                        <a href="#!" class="collection-item"><span class="badge">1</span>Parcours 1 : <%= titleJourney %></a>
-                        <a href="#!" class="collection-item"><span class="new badge">4</span>Parcours 2 : <%= titleJourney2 %></a>
-                    </div>
-
+                    <% }else{ -%>
+                    <%=xp%>%">
                 </div>
+                <% } %>
             </div>
         </div>
+    </div>
+</div>
+</div>
 
-        <!--Bouton flottant de modification info user-->
-        <div class="fixed-action-btn">
-            <!-- Return to the map -->
-            <a href="/" class="btn-floating pulse btn-large blue waves-effect waves-light">
-                <i class="large material-icons">language</i>
-            </a>
-            <!-- Modal Trigger -->
-            <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1">
-                <i class="large material-icons">mode_edit</i>
-            </a>
-            <!--Button logout -->
-            <a href="/logout" class="btn-floating btn-large red"><i class="material-icons">logout</i></a>
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <div class="modal-content">
-                    <h4>Modifier vos informations</h4>
-                    <form action="/edit" method="POST">
-                       <div class="input-field">
-                        <input type="text" name="username" id="username" value="<%= username %>"/>
-                        <label for="username">Nom d'utilisateur</label>
-                    </div>
-                    <div class="input-field">
-                        <input id="email" name="email" type="email" value="<%= email %>"/>
-                        <label for="email">E-mail</label>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i class="material-icons">publish</i></button>
-                    </div>
-                </form>
-                
-                <!--<a class="btn-floating green"><i class="material-icons">publish</i></a>-->
-            </div>
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header">
+            <h6 class="blue-text text-darken-1">Parcours 1 :
+                <%= titleJourney %>
+            </h6>
         </div>
+        <div class="collapsible-body card-panel teal lighten-2"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+        <div class="collapsible-header">
+            <h6 class="blue-text text-darken-1">Parcours 2 :
+                <%= titleJourney2 %>
+            </h6>
+        </div>
+        <div class="collapsible-body card-panel teal lighten-2"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+</ul>
 
 
-        <script>
-            //Ouverture du modal en utilisant un déclencheur :
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('.modal');
-                var instances = M.Modal.init(elems);
-            });
-        </script>
+<!--Bouton flottant de modification info user-->
+<div class="fixed-action-btn">
+    <!-- Return to the map -->
+    <a href="/" class="btn-floating pulse btn-large blue waves-effect waves-light">
+        <i class="large material-icons">language</i>
+    </a>
+    <!-- Modal Trigger -->
+    <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <!--Button logout -->
+    <a href="/logout" class="btn-floating btn-large red"><i class="material-icons">logout</i></a>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modifier vos informations</h4>
+            <form action="/edit" method="POST">
+                <div class="input-field">
+                    <input type="text" name="username" id="username" value="<%= username %>" />
+                    <label for="username">Nom d'utilisateur</label>
+                </div>
+                <div class="input-field">
+                    <input id="email" name="email" type="email" value="<%= email %>" />
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i
+                            class="material-icons">send</i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        //Ouverture du modal en utilisant un déclencheur :
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+    </script>
+
+    <script>
+        // Collapsible POI
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
+    </script>
 
 
 
-        <%-include('partials/footer.ejs')%>
+    <%-include('partials/footer.ejs')%>
