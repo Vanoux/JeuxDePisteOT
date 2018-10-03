@@ -237,10 +237,16 @@ app.post('/act/:id',function(req,res){
 			if(error){
 				console.log(error);
 			}else{
-				let newXp=sess.xp+answer;
+				let newXp=sess.xp+(+answer);
 				let updateXp=`UPDATE User SET xp ='${newXp}' WHERE idUser='${sess.idUser}'`;
-				sess.xp=newXp;
-				res.redirect('/map');
+				connection.query(updateXp,function(error,results,field){
+					if(error){
+						console.log(error);
+					}else{
+						sess.xp=newXp;
+						res.redirect('/map');
+					}
+				})
 			}
 		});
 	}else{
