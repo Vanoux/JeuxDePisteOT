@@ -183,7 +183,7 @@ app.post('/edit', function(req,res){
 		sess=req.session;
 		let username=blbl(req.body.username);
 		let password=blbl(req.body.password);
-		let connect=`SELECT idUser, pass FROM User WHERE username='${username}'`;
+		let connect=`SELECT idUser, pass,xp FROM User WHERE username='${username}'`;
 		connection.query(connect,function(error,results,field){
 			if(error){
 				console.log(error);
@@ -192,6 +192,7 @@ app.post('/edit', function(req,res){
 				if (bcrypt.compareSync(password, results[0].pass)) {
 					sess.idUser=results[0].idUser;
 					sess.username=username;
+					sess.xp=results[0].xp;
 					res.redirect('/');
 				}
 			}else{
@@ -226,8 +227,25 @@ app.get('/logout',function(req,res){
 	});
 });
 //Verification de la réponse d'une activité
-app.post('/act/:id',function(){
+app.post('/act/:id',function(req,res){
+	sess=req.session;
 	let answer=blbl(req.body.answer);
+	let idpoi=blbl(req.params.id);
+	if(answer!=0){
+		let validatePOI=`INSERT INTO Done (idUser,idPOI) VALUES ('${sess.idUser}','${idpoi}')`;
+		connection.query(validatePOI,function(error,results,field){
+			if(error){
+				console.log(error);
+			}else{
+				let newXp=sess.xp+answer;
+				let updateXp=`UPDATE User SET xp ='${newXp}' WHERE idUser='${sess.idUser}'`;
+				sess.xp=newXp;
+				res.redirect('/map');
+			}
+		});
+	}else{
+		res.redirect('/map')
+	}
 });
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8080, (req, res) =>
