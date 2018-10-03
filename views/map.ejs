@@ -49,7 +49,7 @@
                 <% } %>
                 <% }) %>
                 <% if(poi.idActivity == 2){ %>
-                 <!-- l'activité 2 est un peu différente -->
+                <!-- l'activité 2 est un peu différente -->
                 <div class="input-field">
                     <p>
                         <input type="hidden" name="answer" value="<%=poi.xpAmount%>">
@@ -64,6 +64,11 @@
     </div>
 </div>
 <% }); %>
+<div id="actidisabled" class="modal">
+    <div class="modal-content">
+        <h2>Désolé tu as déjà fini cette activité ! Il t'en reste peut-être d'autres</h2>
+    </div>
+</div>
 <script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -73,8 +78,8 @@ integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9
 crossorigin=""></script>
 <script src="/leaflet-compass.js"></script>
 <script type="text/javascript">
-
-
+        var done = [<%= done %>];
+        console.log(done);
         //variable pour le suivi ou non de l'utilisateur
         var tracking = true;
         //creation de l'icone personnalisée pour le personnage
@@ -109,7 +114,7 @@ crossorigin=""></script>
         <% listpoi.forEach(function(poi){ %>
             var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
             grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
-        <% }); %>
+            <% }); %>
         //transforme les tableaux de POI en layers de POI
         var layerPOI1 = L.layerGroup(grpPOI1);
         var layerPOI2 = L.layerGroup(grpPOI2);
@@ -132,8 +137,11 @@ crossorigin=""></script>
               var lat = position.coords.latitude ;
               var long = position.coords.longitude;
               var dom = '#act'+id;
-              console.log(dom); 
-              if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+              if(done.includes(id)){
+                $('#actidisabled').modal();
+                $('#actidisabled').modal('open');
+            }
+            else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
                 $(dom).modal();
                 $(dom).modal('open');
             }
