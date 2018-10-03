@@ -10,3 +10,11 @@ html, body, #map {
 .fixed-action-btn-2 {
     top:8px;
 }
+
+.form-modal {
+    width: 30% ;
+}
+
+.img-title-act {
+    width: 100%;
+}

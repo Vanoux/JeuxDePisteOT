@@ -26,7 +26,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 // Définition du moteur de template
 app.set('view engine', 'ejs');
 //Fonction sécurité sur les inputs
- let blbl = function(str) {
+let blbl = function(str) {
 	if (str == null) return ' ';
 
 	return String(str).
@@ -52,19 +52,42 @@ app.get("/", function (req, res) {
 app.get("/map", function (req,res){
 	sess=req.session;
 	if (sess.username){
-		let selectpoi = `SELECT * FROM poi;`;
+		//on selectionne tous les POI avec leurs activités correspondantes
+		let selectpoi = `SELECT DISTINCT * FROM POI LEFT JOIN activity on poi.idPOI = activity.idPOI;`;
 		connection.query(selectpoi,function(error,listpoi,field){
 			if(error){
 				console.log(error);
 			}
 			else {
+				//on selectionne tous les parcours
 				let selectjourney = `SELECT * FROM journey;`;
 				connection.query(selectjourney,function(error,listjourney,field){
 					if(error){
 						console.log(error);
 					}
 					else {
-						res.render('map',{listpoi:listpoi,listjourney:listjourney});
+						listpoi.forEach(poi => {
+
+							if (poi.des !=null && poi.des.indexOf("%") != -1)
+							{
+								poi.img = poi.des.split("%")[1];
+								poi.des = poi.des.split("%")[0];
+							}else{
+								poi.img = "";
+							}
+						});
+						//on selectionne toutes les réponses
+						let selectresp = `SELECT * FROM response;`;
+						connection.query(selectresp, function(error,listresp,field){
+							if(error){
+								console.log(error);
+							}
+							else{
+								//boom on rend toutes les données dans la vue map
+								res.render('map',{listpoi:listpoi,listjourney:listjourney, listresp:listresp});
+							}
+						})
+						
 					}
 				})
 			}
@@ -145,7 +168,7 @@ app.post('/edit', function(req,res){
 // 			let title = results[0].titleJourney
 // 			res.render('dashboard', {
 // 				titleJourney: title
-				
+
 // 			});
 // 		}
 // 	})
@@ -202,9 +225,12 @@ app.get('/logout',function(req,res){
 		}
 	});
 });
+//Verification de la réponse d'une activité
+app.post('/act/:id',function(){
+	let answer=blbl(req.body.answer);
+});
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8080, (req, res) =>
 	console.log('Server Ready')
 	);
-//Exemple pour exporter un module
-module.exports = blbl;
+module.exports = {blbl,bcrypt};

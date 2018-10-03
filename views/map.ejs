@@ -21,52 +21,37 @@
       </a>
   </div>
 </div>
-<!-- Modal Activité 1 ! -->
-<div id="act1" class="modal">
+<% listpoi.forEach(function(poi){ %>
+<!-- Modal Activité idPOI ! -->
+<div id="act<%=poi.idPOI%>" class="modal">
     <div class="modal-content">
-        <h4>Activité 1</h4>
-        <form action="/act/1" method="POST">
-            <fieldset>
-                <legend>Quel est l'animal présent en face de la croix du sommet de l'eglise</legend>
+        <h6><%=poi.title%></h6>
+        <p><%=poi.des%></p>
+        <% if (poi.img !="") {%>
+        <img class ="img-title-act" src = "/img/<%=poi.img%>">
+        <% } %>
+        <div class="row">
+            <form action="/act/<%=poi.idPOI%>" class="col s12 m4 offset-m4" method="POST">
+                <% listresp.forEach(function(resp){ %>
+                <% if(resp.idActivity == poi.idActivity){ %>
                 <div class="input-field">
                     <p>
                         <label>
-                            <input type="radio" name="statue" id="vache">
-                            <span>Une Vache</span>
+                            <input type="radio" name="answer" id="<%=resp.caption%>" value="<%=resp.valid%>">
+                            <span><%=resp.caption%></span>
                         </label>
                     </p>
                 </div>
-                <div class="input-field">
-                    <p>
-                        <label>
-                            <input type="radio" name="statue" id="cheval">
-                            <span>Un Cheval</span>
-                        </label>
-                    </p>
-                </div>
-                <div class="input-field">
-                    <p>
-                        <label>
-                            <input type="radio" name="statue" id="agneau">
-                            <span>Un Agneau</span>
-                        </label>
-                    </p>
-                </div>
-                <div class="input-field">
-                    <p>
-                        <label>
-                            <input type="radio" name="statue" id="ours">
-                            <span>Un Ours</span>
-                        </label>
-                    </p>
-                </div>
+                <% } %>
+                <% }) %>
                 <div class="modal-footer">
                     <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i class="material-icons">publish</i></button>
                 </div>
-            </fieldset>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
+<% }); %>
 <script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -112,7 +97,7 @@ crossorigin=""></script>
         <% listpoi.forEach(function(poi){ %>
             var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
             grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
-            <% }); %>
+        <% }); %>
         //transforme les tableaux de POI en layers de POI
         var layerPOI1 = L.layerGroup(grpPOI1);
         var layerPOI2 = L.layerGroup(grpPOI2);
@@ -130,12 +115,15 @@ crossorigin=""></script>
         //Fonction qui va checker la position du joueur et du point d'interet
         function isNear(e){
             var f = this;
+            id = this._leaflet_id;
             function maPosition(position) {
               var lat = position.coords.latitude ;
               var long = position.coords.longitude;
+              var dom = '#act'+id;
+              console.log(dom); 
               if(mymap.distance(f.getLatLng(),[lat,long])<1500){
-                $('#act1').modal();
-                $('#act1').modal('open')
+                $(dom).modal();
+                $(dom).modal('open');
             }
             else {
                 f._popup.setContent('Tu n\'es pas assez près du point');
@@ -150,7 +138,7 @@ crossorigin=""></script>
 
         //fonction qui sera appelée toutes les secondes pour update la position de l'utilisateur
         function GetPosMap(){
-            console.log(mymap.distance(POI1.getLatLng(),POI2.getLatLng()));
+            //console.log(mymap.distance(POI1.getLatLng(),POI2.getLatLng()));
             // récupération de la position de l'utilisateur
             var lat,long;
             function maPosition(position) {
