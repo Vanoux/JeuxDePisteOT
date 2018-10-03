@@ -28,14 +28,25 @@
                         </div>
                     </div>
 
-                    <div class="collection">
+                    <!--<div class="collection">
                         <a href="#!" class="collection-item"><span class="badge">1</span>Parcours 1 : <%= titleJourney %></a>
                         <a href="#!" class="collection-item"><span class="new badge">4</span>Parcours 2 : <%= titleJourney2 %></a>
-                    </div>
-
+                    </div>-->
                 </div>
             </div>
         </div>
+
+<ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><h6>Parcours 1 : <%= titleJourney %></h6></div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><h6>Parcours 2 : <%= titleJourney2 %></h6></div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+</ul>
+
 
         <!--Bouton flottant de modification info user-->
         <div class="fixed-action-btn">
@@ -63,11 +74,9 @@
                         <label for="email">E-mail</label>
                     </div>
                     <div class="modal-footer">
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i class="material-icons">publish</i></button>
+                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i class="material-icons">send</i></button>
                     </div>
                 </form>
-                
-                <!--<a class="btn-floating green"><i class="material-icons">publish</i></a>-->
             </div>
         </div>
 
@@ -78,6 +87,14 @@
                 var elems = document.querySelectorAll('.modal');
                 var instances = M.Modal.init(elems);
             });
+        </script>
+
+        <script>
+        // Collapsible POI
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
         </script>
 
 
