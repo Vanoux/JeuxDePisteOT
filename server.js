@@ -52,19 +52,42 @@ app.get("/", function (req, res) {
 app.get("/map", function (req,res){
 	sess=req.session;
 	if (sess.username){
-		let selectpoi = `SELECT * FROM poi;`;
+		//on selectionne tous les POI avec leurs activités correspondantes
+		let selectpoi = `SELECT DISTINCT * FROM POI LEFT JOIN activity on poi.idPOI = activity.idPOI;`;
 		connection.query(selectpoi,function(error,listpoi,field){
 			if(error){
 				console.log(error);
 			}
 			else {
+				//on selectionne tous les parcours
 				let selectjourney = `SELECT * FROM journey;`;
 				connection.query(selectjourney,function(error,listjourney,field){
 					if(error){
 						console.log(error);
 					}
 					else {
-						res.render('map',{listpoi:listpoi,listjourney:listjourney});
+						listpoi.forEach(poi => {
+
+							if (poi.des !=null && poi.des.indexOf("%") != -1)
+							{
+								poi.img = poi.des.split("%")[1];
+								poi.des = poi.des.split("%")[0];
+							}else{
+								poi.img = "";
+							}
+						});
+						//on selectionne toutes les réponses
+						let selectresp = `SELECT * FROM response;`;
+						connection.query(selectresp, function(error,listresp,field){
+							if(error){
+								console.log(error);
+							}
+							else{
+								//boom on rend toutes les données dans la vue map
+								res.render('map',{listpoi:listpoi,listjourney:listjourney, listresp:listresp});
+							}
+						})
+						
 					}
 				})
 			}
