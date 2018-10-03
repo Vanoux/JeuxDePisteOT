@@ -78,8 +78,10 @@ integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9
 crossorigin=""></script>
 <script src="/leaflet-compass.js"></script>
 <script type="text/javascript">
-        var done = [<%= done %>];
-        console.log(done);
+        var done=[];
+        <% tabdone.forEach(function(done){ %>
+            done.push(<%=done.idPOI%>);
+        <% }) %> 
         //variable pour le suivi ou non de l'utilisateur
         var tracking = true;
         //creation de l'icone personnalisée pour le personnage
@@ -137,7 +139,6 @@ crossorigin=""></script>
                 var lat = position.coords.latitude ;
                 var long = position.coords.longitude;
                 var dom = '#act'+id;
-                console.table(done);
                 if(done.includes(id)){
                     $('#actidisabled').modal();
                     $('#actidisabled').modal('open');
