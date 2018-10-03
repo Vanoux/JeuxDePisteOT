@@ -26,7 +26,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 // Définition du moteur de template
 app.set('view engine', 'ejs');
 //Fonction sécurité sur les inputs
- let blbl = function(str) {
+let blbl = function(str) {
 	if (str == null) return ' ';
 
 	return String(str).
@@ -168,7 +168,7 @@ app.post('/edit', function(req,res){
 // 			let title = results[0].titleJourney
 // 			res.render('dashboard', {
 // 				titleJourney: title
-				
+
 // 			});
 // 		}
 // 	})
@@ -225,9 +225,12 @@ app.get('/logout',function(req,res){
 		}
 	});
 });
+//Verification de la réponse d'une activité
+app.post('/act/:id',function(){
+	let answer=blbl(req.body.answer);
+});
 // Lancement du serveur
 const server = app.listen(process.env.PORT || 8080, (req, res) =>
 	console.log('Server Ready')
 	);
-//Exemple pour exporter un module
-module.exports = blbl;
+module.exports = {blbl,bcrypt};
