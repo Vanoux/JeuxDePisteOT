@@ -4,15 +4,11 @@ const mysql = require('mysql');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt-nodejs');
+const connection=require('./bdd.js');
 //ajout css depuis le dossier suivant
 app.use(express.static('public'));
 // Création de la connexion de mysql avec le site
-let connection = mysql.createConnection({
-	host: 'den1.mysql1.gear.host',
-	user: 'stgo',
-	password: 'Ek7eg2-7?6Vc',
-	database: 'stgo'
-});
+
 //Utilisation de express session
 app.use(session({secret: 'ssshhhhh',
 	resave: true,
