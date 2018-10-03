@@ -37,7 +37,11 @@
                 <div class="input-field">
                     <p>
                         <label>
-                            <input type="radio" name="answer" id="<%=resp.caption%>" value="<%=resp.valid%>">
+                            <% if(resp.valid ==1) {%>
+                            <input type="radio" name="answer" id="<%=resp.caption%>" value="<%=poi.xpAmount%>">
+                            <% }else{ %>
+                            <input type="radio" name="answer" id="<%=resp.caption%>" value="0">
+                            <% } %>
                             <span><%=resp.caption%></span>
                         </label>
                     </p>
