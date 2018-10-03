@@ -1,12 +1,16 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
-const test = require('../server.js');
+let server = require('../server.js');
 chai.use(chaiHttp);
-
 let assert = require('assert');
-  describe('#Test()', function() {
-    it('test', function() {
-      assert.equal(test,'test');
-    });
-  });
+
+describe('blbl()', function () {
+
+	it('exists', function () {
+		assert.equal(server('--ezda<>'),'&#151;ezda&lt;&gt;')
+	});
+	it('should return a space string', function () {
+		assert.equal(server(),' ')
+	});
+});
