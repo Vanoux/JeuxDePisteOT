@@ -134,24 +134,25 @@ crossorigin=""></script>
             var f = this;
             id = this._leaflet_id;
             function maPosition(position) {
-              var lat = position.coords.latitude ;
-              var long = position.coords.longitude;
-              var dom = '#act'+id;
-              if(done.includes(id)){
-                $('#actidisabled').modal();
-                $('#actidisabled').modal('open');
+                var lat = position.coords.latitude ;
+                var long = position.coords.longitude;
+                var dom = '#act'+id;
+                console.table(done);
+                if(done.includes(id)){
+                    $('#actidisabled').modal();
+                    $('#actidisabled').modal('open');
+                }
+                else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+                    $(dom).modal();
+                    $(dom).modal('open');
+                }
+                else {
+                    f._popup.setContent('Tu n\'es pas assez près du point');
+                }
             }
-            else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
-                $(dom).modal();
-                $(dom).modal('open');
-            }
-            else {
-                f._popup.setContent('Tu n\'es pas assez près du point');
-            }
+            if(navigator.geolocation)
+                navigator.geolocation.getCurrentPosition(maPosition);
         }
-        if(navigator.geolocation)
-            navigator.geolocation.getCurrentPosition(maPosition);
-    }
 
     var comp = new L.Control.Compass({position : 'topleft', autoActive: true, showDigit:true});
     mymap.addControl(comp);
