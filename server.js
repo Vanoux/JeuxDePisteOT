@@ -84,7 +84,7 @@ app.get("/map", function (req,res){
 							}
 							else{
 								//boom on rend toutes les données dans la vue map
-								res.render('map',{listpoi:listpoi,listjourney:listjourney, listresp:listresp});
+								res.render('map',{listpoi:listpoi,listjourney:listjourney, listresp:listresp,done:sess.poi});
 							}
 						})
 						
@@ -193,6 +193,17 @@ app.post('/edit', function(req,res){
 					sess.idUser=results[0].idUser;
 					sess.username=username;
 					sess.xp=results[0].xp;
+					let getDone=`SELECT idPOI from Done WHERE idUser='${sess.idUser}'`;
+					sess.poi=[];
+					connection.query(getDone,function(error,results,field){
+						if(error){
+							console.log(error);
+						}else if (results.length>0){
+							results.forEach(function(e){
+								sess.poi.push(e.idPOI);
+							})
+						}
+					})
 					res.redirect('/');
 				}
 			}else{
@@ -244,6 +255,7 @@ app.post('/act/:id',function(req,res){
 						console.log(error);
 					}else{
 						sess.xp=newXp;
+						sess.poi.push(idpoi);
 						res.redirect('/map');
 					}
 				})
