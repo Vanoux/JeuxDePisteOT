@@ -141,7 +141,7 @@ crossorigin=""></script>
                 $('#actidisabled').modal();
                 $('#actidisabled').modal('open');
             }
-            else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+            else if(mymap.distance(f.getLatLng(),[lat,long])<50000){
                 $(dom).modal();
                 $(dom).modal('open');
             }
