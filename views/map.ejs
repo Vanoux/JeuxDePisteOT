@@ -78,8 +78,10 @@ integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9
 crossorigin=""></script>
 <script src="/leaflet-compass.js"></script>
 <script type="text/javascript">
-        var done = [<%= done %>];
-        console.log(done);
+    var done=[];
+    <% tabdone.forEach(function(done){ %>
+        done.push(<%=done.idPOI%>);
+        <% }) %> 
         //variable pour le suivi ou non de l'utilisateur
         var tracking = true;
         //creation de l'icone personnalisée pour le personnage
@@ -134,27 +136,27 @@ crossorigin=""></script>
             var f = this;
             id = this._leaflet_id;
             function maPosition(position) {
-              var lat = position.coords.latitude ;
-              var long = position.coords.longitude;
-              var dom = '#act'+id;
-              if(done.includes(id)){
-                $('#actidisabled').modal();
-                $('#actidisabled').modal('open');
+                var lat = position.coords.latitude ;
+                var long = position.coords.longitude;
+                var dom = '#act'+id;
+                if(done.includes(id)){
+                    $('#actidisabled').modal();
+                    $('#actidisabled').modal('open');
+                }
+                else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+                    $(dom).modal();
+                    $(dom).modal('open');
+                }
+                else {
+                    f._popup.setContent('Tu n\'es pas assez près du point');
+                }
             }
-            else if(mymap.distance(f.getLatLng(),[lat,long])<50000){
-                $(dom).modal();
-                $(dom).modal('open');
-            }
-            else {
-                f._popup.setContent('Tu n\'es pas assez près du point');
-            }
+            if(navigator.geolocation)
+                navigator.geolocation.getCurrentPosition(maPosition);
         }
-        if(navigator.geolocation)
-            navigator.geolocation.getCurrentPosition(maPosition);
-    }
 
-    var comp = new L.Control.Compass({position : 'topleft', autoActive: true, showDigit:true});
-    mymap.addControl(comp);
+        var comp = new L.Control.Compass({position : 'topleft', autoActive: true, showDigit:true});
+        mymap.addControl(comp);
 
         //fonction qui sera appelée toutes les secondes pour update la position de l'utilisateur
         function GetPosMap(){

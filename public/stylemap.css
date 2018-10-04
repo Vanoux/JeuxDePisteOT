@@ -9,6 +9,7 @@ html, body, #map {
 
 .fixed-action-btn-2 {
     top:8px;
+    height:32px;
 }
 
 .form-modal {
