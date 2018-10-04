@@ -142,6 +142,18 @@ app.get('/register',function(req,res){
 				}
 			})
 		}
+	// // affichage progression
+	// 	let queryPoi = `SELECT idDone FROM Done WHERE idUser = '${id}'`;
+	// 	connection.query(queryPoi, function(error, results, fields){
+	// 		if(error){
+	// 			console.log(error)
+	// 		}
+	// 		else {
+	// 			let display = results[0].queryPoi
+	// 			res.render('dashboard', {display:display});
+	// 		}
+	// 	})
+
 	});
 //Modification infos user
 app.post('/edit', function(req,res){
