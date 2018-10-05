@@ -120,16 +120,24 @@ crossorigin="" ></script>
         });
         //creation des variations de couleurs d'icones
         var greenIcon = new L.Icon({
-            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconUrl: '/img/marker-icon-2x-green.png',
+            shadowUrl: '/img/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
         var redIcon = new L.Icon({
-            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconUrl: '/img/marker-icon-2x-red.png',
+            shadowUrl: '/img/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+        var greyIcon = new L.Icon({
+            iconUrl: '/img/marker-icon-2x-grey.png',
+            shadowUrl: '/img/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34],
@@ -142,8 +150,14 @@ crossorigin="" ></script>
         //pour chaque POI on crée le marqueur associé et on lui assigne une icone correspondant à greenIcon ou redIcon
         //et on l'ajoute à un tableau grpPOI (1 ou 2 suivant le parcours)
         <% listpoi.forEach(function(poi){ %>
-            var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
-            grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
+            if (done.includes(<%=poi.idPOI%>)){
+                //si le POI a deja été fait on le met en gris
+                var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: greyIcon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
+            }else{
+                //s'il n'a pas été fait on le met de la bonne couleur (celle de son activité)
+                var POI<%=poi.idPOI%> = new L.marker([<%=poi.lat%>, <%=poi.lon%>],{icon: <%=listjourney[(poi.idJourney)-1].color%>Icon}).bindPopup("<%=poi.titlePOI%><br><%=poi.descPOI%>").on('click',isNear);
+            }
+                grpPOI<%=poi.idJourney%>.push(POI<%=poi.idPOI%>);
             <% }); %>
         //transforme les tableaux de POI en layers de POI
         var layerPOI1 = L.layerGroup(grpPOI1);
