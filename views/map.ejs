@@ -67,7 +67,7 @@
 <% }); %>
 <div id="actidisabled" class="modal">
     <div class="modal-content">
-       <div class="col s12 m7">
+     <div class="col s12 m7">
         <div class="card horizontal">
           <div class="card-image">
             <img src="img/Hibou1.png">
@@ -83,7 +83,7 @@
 </div>
 <div id="faraway" class="modal">
     <div class="modal-content">
-       <div class="col s12 m7">
+     <div class="col s12 m7">
         <div class="card horizontal">
           <div class="card-image">
             <img src="img/Hibou1.png">
@@ -91,9 +91,9 @@
         <div class="card-stacked">
             <div class="card-content">
                 <p>Nous sommes désolé mais tu es trop éloigné de ce point pour lancer l'activité !</p>
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>
@@ -171,7 +171,7 @@ crossorigin=""></script>
                     $('#actidisabled').modal();
                     $('#actidisabled').modal('open');
                 }
-                else if(mymap.distance(f.getLatLng(),[lat,long])<50){
+                else if(mymap.distance(f.getLatLng(),[lat,long])<1550){
                     $(dom).modal();
                     $(dom).modal('open');
                 }
