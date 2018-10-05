@@ -13,7 +13,15 @@ var filesToCache = [
     'img/Hibou1-ConvertIma.png',
     'img/Hibou1.png',
     'img/HibouMarker.png',
-    'img/lions.jpg'
+    'img/hibouxfelicitation.png',
+    'img/lions.jpg',
+    'marker-icon-2x-green.png',
+    'marker-icon-2x-grey.png',
+    'marker-icon-2x-red.png',
+    'marker-shadow.png',
+    'leaflet-compass.css',
+    'leaflet-compass.js',
+    'stylemap.css'
 ];
 
 self.addEventListener('install', function(e) {
