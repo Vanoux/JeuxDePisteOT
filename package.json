@@ -1,0 +1,34 @@
+{
+  "name": "saint-go",
+  "version": "1.0.0",
+  "description": "L’office du tourisme a émis le souhait de mettre en place une application de jeu de piste autour du patrimoine Saint Gaudinois.",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "leaflet": "^1.3.4",
+    "mocha": "^5.2.0",
+    "mysql": "^2.15.0",
+    "sw-precache": "^5.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha --exit",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vanoux/JeuxDePisteOT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vanoux/JeuxDePisteOT/issues"
+  },
+  "homepage": "https://github.com/Vanoux/JeuxDePisteOT#readme"
+}
