@@ -12,6 +12,7 @@ app.use(express.static('public'));
 //Differents use pour les flash messages
 app.use(cookieParser());
 app.use(flash());
+//app.use(enforce.HTTPS());
 //Utilisation de express session
 app.use(session({secret: 'ssshhhhh',
 	resave: true,

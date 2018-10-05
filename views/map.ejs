@@ -29,7 +29,7 @@
         <h6><%=poi.title%></h6>
         <p><%=poi.des%></p>
         <% if (poi.img !="") {%>
-        <img class ="img-title-act" src = "/img/<%=poi.img%>">
+        <img class="img-title-act"  imgsrc= "/img/<%=poi.img%>">
         <% } %>
         <div class="row">
             <form action="/act/<%=poi.idPOI%>" class="col s12 m4 offset-m4" method="POST">
@@ -187,6 +187,8 @@ crossorigin="" ></script>
                 }
                 else if(mymap.distance(f.getLatLng(),[lat,long])<1550){
                     $(dom).modal();
+                    console.log ($(dom+" > .modal-content > .img-title-act").attr("imgsrc"));
+                    $(dom+" > .modal-content > .img-title-act").attr("src",$(dom+" > .modal-content > .img-title-act").attr("imgsrc"));
                     $(dom).modal('open');
                 }
                 else {
