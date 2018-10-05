@@ -1,5 +1,6 @@
 <%-include('partials/header.ejs')%>
-
+<title>Tableau de bord</title>
+<meta name="description" content="Sur cette page vous pouvez voir votre expérience, la progression de vos parcours, vous pouvez vous deconnectez et modifier vos informations de connexion" />
 
 <div class="row">
     <div class="col s12 m12">
@@ -9,8 +10,9 @@
                 <i class="large material-icons">account_circle</i>
                 <span class="card-title">
                     <%= username %></span>
-                <a>
-                    <%= email %></a>
+                <span>
+                    <%= email %>
+                </span>
                 <h6>Niveau
                     <% if (locals.xp && xp.length>2) {  %>
                     <%=+xp.slice(0,xp.length-2)+1%>
@@ -50,7 +52,7 @@
 <ul class="collapsible">
     <li>
         <div class="collapsible-header">
-            <h6 class="blue-text text-darken-1">Parcours 1 :
+            <h6 class="">Parcours 1 :
                 <%= titleJourney %>
             </h6>
         </div>
@@ -58,7 +60,7 @@
     </li>
     <li>
         <div class="collapsible-header">
-            <h6 class="blue-text text-darken-1">Parcours 2 :
+            <h6 class="">Parcours 2 :
                 <%= titleJourney2 %>
             </h6>
         </div>
