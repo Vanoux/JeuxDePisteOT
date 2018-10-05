@@ -26,14 +26,14 @@
                 </div>
                 <% } %>
             </div>
-             <!--Affichage XP sous la barre de progression-->
-            <h6> <%= xp%100 %> %</h6>
+            <!--Affichage % de la barre de progression-->
+            <h6>
+                <%= xp%100 %> %</h6>
         </div>
     </div>
-
 </div>
 </div>
-
+<!-- script Progression / Parcours-->
 <% num1 = 0 %>
 <% num2 = 0 %>
 <% display.forEach(function(elt){ %>
@@ -50,11 +50,18 @@
 <ul class="collapsible">
     <li>
         <div class="collapsible-header">
-            <h6 class="blue-text text-darken-1">Parcours 1 :
+            <h6 class="blue-text text-darken-1">Parcours 1 : 
                 <%= titleJourney %>
             </h6>
         </div>
-        <div class="collapsible-body card-panel teal lighten-2"><span><h6>Tu as complété <%= num1 %> / <%= total[0].nbr%></h6></span></div>
+        <div class="collapsible-body card-panel teal lighten-2">
+            <span>
+                <h5 class="center-align">Questions complétés :
+                    <%= num1 %> /
+                    <%= total[0].nbr%>
+                </h5>
+            </span>
+        </div>
     </li>
     <li>
         <div class="collapsible-header">
@@ -62,7 +69,12 @@
                 <%= titleJourney2 %>
             </h6>
         </div>
-        <div class="collapsible-body card-panel teal lighten-2"><span><h6>Tu as complété <%= num2 %> / <%= total[1].nbr%></h6></span></div>
+        <div class="collapsible-body card-panel teal lighten-2"><span>
+                <h5 class="center-align">Questions complétés :
+                    <%= num2 %> /
+                    <%= total[1].nbr%>
+                </h5>
+            </span></div>
     </li>
 </ul>
 
@@ -73,7 +85,7 @@
     <a href="/" class="btn-floating pulse btn-large blue waves-effect waves-light">
         <i class="large material-icons">language</i>
     </a>
-    <!-- Modal Trigger -->
+    <!-- Modal Trigger d'edit-->
     <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1">
         <i class="large material-icons">mode_edit</i>
     </a>
@@ -116,6 +128,7 @@
             var instances = M.Collapsible.init(elems);
         });
     </script>
+
 
 
 
