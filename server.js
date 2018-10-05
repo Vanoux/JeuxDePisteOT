@@ -1,12 +1,17 @@
-const express = require('express');
-const app = express();
-const mysql = require('mysql');
-const bodyparser = require('body-parser');
-const session = require('express-session');
-const bcrypt = require('bcrypt-nodejs');
-const connection=require('./bdd.js');
+const express = require('express'),
+app = express(),
+mysql = require('mysql'),
+bodyparser = require('body-parser'),
+session = require('express-session'),
+bcrypt = require('bcrypt-nodejs'),
+connection=require('./bdd.js'),
+flash = require('express-flash'),
+cookieParser = require('cookie-parser');
 //ajout css depuis le dossier suivant
 app.use(express.static('public'));
+//Differents use pour les flash messages
+app.use(cookieParser());
+app.use(flash());
 //Utilisation de express session
 app.use(session({secret: 'ssshhhhh',
 	resave: true,
@@ -237,12 +242,14 @@ app.post('/act/:id',function(req,res){
 						console.log(error);
 					}else{
 						sess.xp=newXp;
+						req.flash('Success','Tu as bien réussi l\'activité, félicitations !');
 						res.redirect('/map');
 					}
 				})
 			}
 		});
 	}else{
+		req.flash('Error','Tu t\'es trompé de réponse , réessaie en regardant un peu mieux')
 		res.redirect('/map')
 	}
 });
