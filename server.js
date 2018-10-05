@@ -126,35 +126,43 @@ app.get('/register',function(req,res){
 				if(error){
 					console.log(error)
 				}
-				else {
+				else { 
 					sess.username=results[0].username;
 					let username=sess.username;
-					let titleJourney = `SELECT * FROM Journey`;
+					let titleJourney = `SELECT * FROM Journey`; // récup les parcours
 					connection.query(titleJourney, function (error, journeys, fields){
 						if(error){
 							console.log(error);
-						} else {
-							let title = journeys[0].titleJourney
-							let title2 = journeys[1].titleJourney
-							res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString(), titleJourney:title, titleJourney2:title2});
+						} else { // récup les points d'interêts 
+							let queryPoi = `SELECT DISTINCT Done.idPOI, POI.idJourney FROM Done, POI WHERE Done.idPOI = POI.idPOI AND Done.idUser = ${id}`;
+							connection.query(queryPoi, function(error, progress, fields){
+								if(error){
+									console.log(error)
+								}
+								else { // compte les points d'interêts fait par parcours
+									let queryTotalJourney = `SELECT count(idPOI) as nbr FROM POI GROUP BY idJourney`;
+									connection.query(queryTotalJourney, function (error, total, fields){
+										if(error){
+											console.log(error)
+										}
+										else {
+											let display = progress
+											let title = journeys[0].titleJourney
+											let title2 = journeys[1].titleJourney
+											res.render('dashboard',{username:username, email:results[0].mail, xp:results[0].xp.toString(), titleJourney:title, titleJourney2:title2, display:display, total:total});
+										}
+									})
+									
+								}
+							})
+							
 						}
 					})
 				}
 			})
 		}
-	// // affichage progression
-	// 	let queryPoi = `SELECT idDone FROM Done WHERE idUser = '${id}'`;
-	// 	connection.query(queryPoi, function(error, results, fields){
-	// 		if(error){
-	// 			console.log(error)
-	// 		}
-	// 		else {
-	// 			let display = results[0].queryPoi
-	// 			res.render('dashboard', {display:display});
-	// 		}
-	// 	})
-
 	});
+
 //Modification infos user
 app.post('/edit', function(req,res){
 	sess=req.session;
