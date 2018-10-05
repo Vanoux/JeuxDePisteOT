@@ -21,7 +21,8 @@ var filesToCache = [
     'img/marker-shadow.png',
     'leaflet-compass.css',
     'leaflet-compass.js',
-    'stylemap.css'
+    'stylemap.css',
+    'materialize.min.css'
 ];
 
 self.addEventListener('install', function(e) {

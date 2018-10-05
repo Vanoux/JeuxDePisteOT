@@ -1,5 +1,6 @@
 <%-include('partials/header.ejs')%>
     <title>Bienvenue dans l'appli Saint-GO</title>
+    <meta name="description" content="Page d'accueil de l'application St-go, qui vous demande de vous enregistrer ou de vous connecter.">
 </head>
 <body>
     <div class="row">
@@ -8,25 +9,30 @@
         </div>
         <div class="col s12 m4 offset-m4 center-align">
             <div class="card">
-                <div class="card-action teal lighten-1 white-text">
+                <div class="card-action teal darken-2 white-text">
                     <h5>Bienvenue</h5>
                 </div>
                 <div class="card-content">
                     <div class="form-field">
                         <a class="green" href="/login">
-                            <button class="btn waves-effect waves-light">Se connecter</button>
+                            <button class="btn waves-effect waves-light teal darken-2">Se connecter</button>
                         </a>
                     </div>
                 </div>
                 <div class="card-content">
                     <div class="form-field">
                         <a class="green" href="/register">
-                            <button class="btn waves-effect waves-light">S'enregistrer</button>
+                            <button class="btn waves-effect waves-light teal darken-2">S'enregistrer</button>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <img class="col s12 m4 offset-m4 center-align" src="/img/ccc.png">
+        <div class="row" >
+            <img class="col s7 m2 offset-m4 center-align" src="/img/ccc.png" alt="Logo de la 5C">
+            <img class="col s5 m2 center-align" src="/img/simplon.png" alt="Logo Simplon">
+        </div>
+        <img class="col s12 m4 offset-m4 center-align" src="/img/logoUEHG.png" alt="Logo de la région">
+
     </div>
 <%- include('partials/footer.ejs')%>
