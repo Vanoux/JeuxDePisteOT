@@ -5,5 +5,11 @@
     .then(function() { console.log('Service Worker Registered'); });
   }</script>
   <script src="sw.js"></script>
+   <% if (locals.messages.Error) { -%>
+    <script> M.toast({html: '<%=messages.Error%>'})</script>
+    <% } -%>
+    <% if (locals.messages.Success) { -%>
+    <script> M.toast({html: '<%=messages.Success%>'})</script>
+    <% } -%>
 </body>
 </html>
