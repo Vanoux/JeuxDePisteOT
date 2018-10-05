@@ -179,28 +179,6 @@ app.post('/edit', function(req,res){
 	})
 
 });
-// Ajout parcours et POI sur Dashboard
-// app.get('/dashboard', function (req, res) {
-// 	sess=req.session;
-
-// 	let titleJourney = `SELECT * FROM Journey;`;
-// 	connection.query(titleJourney, function (error, results, fields) {
-// 		if(error){
-// 			console.log(error);
-// 		} else {
-// 			let title = results[0].titleJourney
-// 			res.render('dashboard', {
-// 				titleJourney: title
-
-// 			});
-// 		}
-// 	})
-// })
-
-
-
-
-
 	//Lors d'une tentative de connexion
 	app.post('/login',function(req,res){
 		sess=req.session;
