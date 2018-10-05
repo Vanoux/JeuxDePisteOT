@@ -67,8 +67,35 @@
 <% }); %>
 <div id="actidisabled" class="modal">
     <div class="modal-content">
-        <h2>Désolé tu as déjà fini cette activité ! Il t'en reste peut-être d'autres</h2>
-    </div>
+       <div class="col s12 m7">
+        <div class="card horizontal">
+          <div class="card-image">
+            <img src="img/Hibou1.png">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+              <p>Nous sommes désolé mais tu as déjà fini cette activité !</p>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+<div id="faraway" class="modal">
+    <div class="modal-content">
+       <div class="col s12 m7">
+        <div class="card horizontal">
+          <div class="card-image">
+            <img src="img/Hibou1.png">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <p>Nous sommes désolé mais tu es trop éloigné de ce point pour lancer l'activité !</p>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
 </div>
 <script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -144,12 +171,13 @@ crossorigin=""></script>
                     $('#actidisabled').modal();
                     $('#actidisabled').modal('open');
                 }
-                else if(mymap.distance(f.getLatLng(),[lat,long])<1500){
+                else if(mymap.distance(f.getLatLng(),[lat,long])<50){
                     $(dom).modal();
                     $(dom).modal('open');
                 }
                 else {
-                    f._popup.setContent('Tu n\'es pas assez près du point');
+                    $('#faraway').modal();
+                    $('#faraway').modal('open');
                 }
             }
             if(navigator.geolocation)
