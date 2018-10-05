@@ -185,7 +185,7 @@ crossorigin="" ></script>
                     $('#actidisabled').modal();
                     $('#actidisabled').modal('open');
                 }
-                else if(mymap.distance(f.getLatLng(),[lat,long])<1550){
+                else if(mymap.distance(f.getLatLng(),[lat,long])<20){
                     $(dom).modal();
                     console.log ($(dom+" > .modal-content > .img-title-act").attr("imgsrc"));
                     $(dom+" > .modal-content > .img-title-act").attr("src",$(dom+" > .modal-content > .img-title-act").attr("imgsrc"));
