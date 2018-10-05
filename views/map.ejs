@@ -70,7 +70,7 @@
      <div class="col s12 m7">
         <div class="card horizontal">
           <div class="card-image">
-            <img id="done" src="" imgsrc= "img/Hibou1.png">
+            <img src="img/Hibou1.png">
         </div>
         <div class="card-stacked">
             <div class="card-content">
@@ -86,7 +86,7 @@
      <div class="col s12 m7">
         <div class="card horizontal">
           <div class="card-image">
-            <img id="far" src="" imgsrc="img/Hibou1.png">
+            <img src="img/Hibou1.png">
         </div>
         <div class="card-stacked">
             <div class="card-content">
@@ -183,7 +183,6 @@ crossorigin="" ></script>
                 var dom = '#act'+id;
                 if(done.includes(id)){
                     $('#actidisabled').modal();
-                    $('#done').attr("src",$("#done").attr("imgsrc"));
                     $('#actidisabled').modal('open');
                 }
                 else if(mymap.distance(f.getLatLng(),[lat,long])<1550){
@@ -194,7 +193,6 @@ crossorigin="" ></script>
                 }
                 else {
                     $('#faraway').modal();
-                    $('#far').attr("src",$('#far').attr("imgsrc"));
                     $('#faraway').modal('open');
                 }
             }
