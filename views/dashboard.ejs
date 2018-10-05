@@ -27,13 +27,26 @@
                 <% } %>
             </div>
              <!--Affichage XP sous la barre de progression-->
-            <h6>Tu as <%= xp %> XP !</h6>
+            <h6> <%= xp%100 %> %</h6>
         </div>
     </div>
 
 </div>
 </div>
 
+<% num1 = 0 %>
+<% num2 = 0 %>
+<% display.forEach(function(elt){ %>
+<% if(elt.idJourney == 1){%>
+<% num1++ %>
+<% } %>
+<% if(elt.idJourney == 2){%>
+<% num2++ %>
+<% } %>
+<% }) %>
+
+
+<!-- Affichage des parcours et progression-->
 <ul class="collapsible">
     <li>
         <div class="collapsible-header">
@@ -41,7 +54,7 @@
                 <%= titleJourney %>
             </h6>
         </div>
-        <div class="collapsible-body card-panel teal lighten-2"><span>Lorem ipsum dolor sit amet.</span></div>
+        <div class="collapsible-body card-panel teal lighten-2"><span><h6>Tu as complété <%= num1 %> / <%= total[0].nbr%></h6></span></div>
     </li>
     <li>
         <div class="collapsible-header">
@@ -49,7 +62,7 @@
                 <%= titleJourney2 %>
             </h6>
         </div>
-        <div class="collapsible-body card-panel teal lighten-2"><span>Lorem ipsum dolor sit amet.</span></div>
+        <div class="collapsible-body card-panel teal lighten-2"><span><h6>Tu as complété <%= num2 %> / <%= total[1].nbr%></h6></span></div>
     </li>
 </ul>
 
