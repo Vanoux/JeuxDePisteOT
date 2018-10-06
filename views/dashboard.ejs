@@ -53,11 +53,11 @@
             <h6 class="blue-text text-darken-1">Parcours 1 : 
                 <%= titleJourney %>
             </h6>
-            <!-- Bouton de récompense Modal Trigger -->
-            <a class="waves-effect waves-teal btn-flat btn modal-trigger right-align" href="#modal1">Récompense</a>
+            <!-- Bouton de récompense Modal Trigger // Il ne peut pas se placer à droite parce que c'est un li -->
+            
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
-                <img src="img/hibouxCadeaux.png">
+                <img class="responsive-img col s12 m8" src="img/hibouxCadeaux.png" style="width:50%;height:auto;">
             </div>
             <!-- Affichage parcours 1-->
         </div>
@@ -85,7 +85,9 @@
     </li>
 </ul>
 
-
+<% if (num1==total[0].nbr) { -%>
+            <a class="btn pulse btn-large blue waves-effect waves-light modal-trigger" href="#modal1">Récompense du parcours 1</a>
+            <% } -%>
 <!--Bouton flottant de modification info user-->
 <div class="fixed-action-btn">
     <!-- Return to the map -->
