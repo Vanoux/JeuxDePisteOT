@@ -13,7 +13,7 @@ var filesToCache = [
     'img/Hibou1-ConvertIma.png',
     'img/Hibou1.png',
     'img/HibouMarker.png',
-    'img/hibouxfelicitation.png',
+    'img/hibouxCadeaux.png',
     'img/lions.jpg',
     'img/marker-icon-2x-green.png',
     'img/marker-icon-2x-grey.png',
