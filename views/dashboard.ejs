@@ -27,12 +27,11 @@
                 <% } %>
             </div>
             <!--Affichage % de la barre de progression-->
-            <h6>
-                <%= xp%100 %> %</h6>
+            <h6><%= xp%100 %> %</h6>
         </div>
     </div>
 </div>
-</div>
+
 <!-- script Progression / Parcours-->
 <% num1 = 0 %>
 <% num2 = 0 %>
@@ -59,9 +58,9 @@
             <div id="modal2" class="modal">
                 <div class="modal-content">
                     <div class="col s12 m7">
-                        <div class="card horizontal">
+                        <div class="card vertical">
                             <div class="card-image">
-                            <img class="responsive-img col s12 m8" src="img/hibouxCadeaux.png" style="width:100%;height:auto;">
+                                <img class="responsive-img col s12 m8" src="img/hibouxCadeaux.png">
                             </div>
                         </div>
                     </div>
@@ -96,39 +95,56 @@
 <% if (num1==total[0].nbr) { -%>
             <a class="btn pulse btn-large blue waves-effect waves-light modal-trigger" href="#modal2">Récompense du parcours 1</a>
             <% } -%>
+
 <!--Bouton flottant de modification info user-->
 <div class="fixed-action-btn">
-    <!-- Return to the map -->
-    <a href="/" class="btn-floating pulse btn-large blue waves-effect waves-light">
-        <i class="large material-icons">language</i>
+    <a class="btn-floating btn-large blue waves-effect waves-light">
+        <i class="large material-icons">menu</i>
     </a>
-    <!-- Modal Trigger d'edit-->
-    <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1">
-        <i class="large material-icons">mode_edit</i>
-    </a>
-    <!--Button logout -->
-    <a href="/logout" class="btn-floating btn-large red"><i class="material-icons">logout</i></a>
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>Modifier vos informations</h4>
-            <form action="/edit" method="POST">
-                <div class="input-field">
-                    <input type="text" name="username" id="username" value="<%= username %>" />
-                    <label for="username">Nom d'utilisateur</label>
-                </div>
-                <div class="input-field">
-                    <input id="email" name="email" type="email" value="<%= email %>" />
-                    <label for="email">E-mail</label>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i
-                            class="material-icons">send</i></button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <ul>
+       <li>
+            <!-- Return to the map -->
+            <a href="/" class="btn-floating pulse btn-large blue waves-effect waves-light"><i class="large material-icons">language</i></a>
+        </li>
+        <li>
+            <!-- Modal Trigger d'edit-->
+            <a class="btn-floating btn-large green waves-effect waves-light btn modal-trigger" data-target="modal1"><i class="large material-icons">mode_edit</i></a>
+        </li>
+        <li>   
+            <!--Button logout -->
+            <a href="/logout" class="btn-floating btn-large red"><i class="material-icons">logout</i></a>
+       </li>
+    </ul>
+</div>
 
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Modifier vos informations</h4>
+        <form action="/edit" method="POST">
+            <div class="input-field">
+                <input type="text" name="username" id="username" value="<%= username %>" />
+                <label for="username">Nom d'utilisateur</label>
+            </div>
+            <div class="input-field">
+                <input id="email" name="email" type="email" value="<%= email %>" />
+                <label for="email">E-mail</label>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-floating green"><i
+                        class="material-icons">send</i></button>
+            </div>
+        </form>
+    </div>
+</div>
+    
+    <script>
+        //Ouverture du menu 
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {hoverEnabled: false});
+        });
+    </script>
 
     <script>
         //Ouverture du modal en utilisant un déclencheur :
@@ -145,7 +161,7 @@
             var instances = M.Collapsible.init(elems);
         });
     </script>
-
+    
 
 
 
