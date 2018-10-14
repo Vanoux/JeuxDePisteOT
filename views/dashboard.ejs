@@ -56,8 +56,16 @@
             <!-- Bouton de récompense Modal Trigger // Il ne peut pas se placer à droite parce que c'est un li -->
             
             <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <img class="responsive-img col s12 m8" src="img/hibouxCadeaux.png" style="width:50%;height:auto;">
+            <div id="modal2" class="modal">
+                <div class="modal-content">
+                    <div class="col s12 m7">
+                        <div class="card horizontal">
+                            <div class="card-image">
+                            <img class="responsive-img col s12 m8" src="img/hibouxCadeaux.png" style="width:100%;height:auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Affichage parcours 1-->
         </div>
@@ -86,7 +94,7 @@
 </ul>
 
 <% if (num1==total[0].nbr) { -%>
-            <a class="btn pulse btn-large blue waves-effect waves-light modal-trigger" href="#modal1">Récompense du parcours 1</a>
+            <a class="btn pulse btn-large blue waves-effect waves-light modal-trigger" href="#modal2">Récompense du parcours 1</a>
             <% } -%>
 <!--Bouton flottant de modification info user-->
 <div class="fixed-action-btn">
