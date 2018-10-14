@@ -202,7 +202,8 @@ app.post('/edit', function(req,res){
 					res.redirect('/');
 				}
 			}else{
-				res.redirect('/');
+				req.flash('Error','Mauvais Login/Mot de passe !');
+				res.redirect('/login');
 			}
 		})
 	});
