@@ -212,15 +212,24 @@ app.post('/register',function(req,res){
 	let username=blbl(req.body.username);
 	let pass=blbl(req.body.password);
 	let email=blbl(req.body.email);
-	bcrypt.hash(pass,null,null,function(err,hash){
-		let createAccount = `INSERT INTO User (username,pass,mail,xp) VALUES ('${username}','${hash}','${email}',0)`;
-		connection.query(createAccount,function(error,results,field){
-			if(error){
-				console.log(error);
-			}else{
-				res.redirect('/');
-			}
-		});
+	//on vérifie d'abord que le nom d'utilisateur n'existe pas déjà
+	let exist=`SELECT * FROM User WHERE username='${username}'`;
+	connection.query(exist, function(errEx,resEx,fieldEx){
+		if (resEx.length!=0){
+			req.flash('Error','Le nom d\'utilsateur existe déjà !');
+			res.redirect('/register');
+		}else{
+			bcrypt.hash(pass,null,null,function(err,hash){
+				let createAccount = `INSERT INTO User (username,pass,mail,xp) VALUES ('${username}','${hash}','${email}',0)`;
+				connection.query(createAccount,function(error,results,field){
+					if(error){
+						console.log(error);
+					}else{
+						res.redirect('/');
+					}
+				});
+			})
+		}
 	})
 });
 //Deconnexion
