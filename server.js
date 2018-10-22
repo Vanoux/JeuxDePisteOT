@@ -216,7 +216,7 @@ app.post('/register',function(req,res){
 	let exist=`SELECT * FROM User WHERE username='${username}'`;
 	connection.query(exist, function(errEx,resEx,fieldEx){
 		if (resEx.length!=0){
-			req.flash('Error','Le nom d\'utilsateur existe déjà !');
+			req.flash('Error','Le nom d\'utilisateur existe déjà !');
 			res.redirect('/register');
 		}else{
 			bcrypt.hash(pass,null,null,function(err,hash){
